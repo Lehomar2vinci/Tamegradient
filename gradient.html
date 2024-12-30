@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="gradient.css" />
+    <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet" />
+    <title>Gradient</title>
+</head>
+
+<body>
+    <!-- Arrière-plan principal et contenu -->
+    <div class="background">
+        <div class="content">
+            <h1>Bienvenue</h1>
+            <p>Explorez et détendez-vous</p>
+            <button id="sound-button" aria-label="Activer le son">Activer le son</button>
+            <button id="stop-button" style="display: none" aria-label="Désactiver le son">
+                Stop le son
+            </button>
+        </div>
+
+        <!-- Conteneur pour l’animation p5.js -->
+        <div id="sketch-container"></div>
+
+        <!-- Bouton d’informations / menu -->
+        <button id="info-button" aria-label="Ouvrir le menu d'informations" title="Ouvrir le menu d'informations">
+            i
+        </button>
+
+        <!-- Overlay menu (options + à propos) -->
+        <div id="overlay-menu" aria-hidden="true">
+            <div class="menu-content">
+                <h2>Options</h2>
+                <label for="gradient-select">Choisissez un style de gradient :</label>
+                <select id="gradient-select" name="gradient-select">
+                    <option value="original">Original</option>
+                    <option value="bleu">Bleu apaisant</option>
+                    <option value="pastel">Pastel clair</option>
+                </select>
+
+                <div class="explanatory-text">
+                    <h3>À propos</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Et reprehenderit magni voluptas delectus odit.
+                        Quidem reprehenderit harum ullam ipsam id nobis mollitia!
+                    </p>
+                </div>
+
+                <button id="close-menu" aria-label="Fermer le menu">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts p5.js et Tone.js -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.5.0/lib/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tone@14.8.44/build/Tone.min.js"></script>
+    <script src="gradient.js"></script>
+</body>
+
+</html>
