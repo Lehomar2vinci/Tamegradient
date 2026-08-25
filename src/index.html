@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#263c44" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="description" content="Gradient est une expérience audiovisuelle générative, poétique et contemplative autour de la respiration, de la couleur, du mouvement et du son ambient." />
+  <title>Gradient — espace zen génératif V14</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Marcellus&family=Newsreader:opsz,wght@6..72,300;6..72,400&display=swap" rel="stylesheet" />
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/tone@14.8.44/build/Tone.min.js" as="script" />
+  <link rel="stylesheet" href="gradient.css" />
+</head>
+<body>
+  <main class="background" id="background">
+    <div class="color-stage" aria-hidden="true">
+      <div class="color-layer color-layer--a is-visible" id="color-layer-a"></div>
+      <div class="color-layer color-layer--b" id="color-layer-b"></div>
+    </div>
+
+    <div class="atmosphere" aria-hidden="true">
+      <span class="aura aura--one"></span>
+      <span class="aura aura--two"></span>
+      <span class="aura aura--three"></span>
+      <span class="vignette"></span>
+      <span class="grain"></span>
+    </div>
+
+    <div id="sketch-container" aria-hidden="true"></div>
+
+    <header class="topbar ui-layer">
+      <a class="brand" href="#experience" aria-label="Gradient, revenir à l'expérience principale">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Gradient</span>
+      </a>
+
+      <div class="topbar-actions">
+        <button class="language-button" id="language-button" type="button" aria-label="Passer l’interface en anglais" title="English">
+          <span class="language-current" id="language-current">FR</span><span class="language-separator" aria-hidden="true">/</span><span class="language-next" id="language-next">EN</span>
+        </button>
+        <button class="round-button round-button--info" id="about-button" type="button" aria-label="Pourquoi la respiration lente ?" aria-haspopup="dialog" title="À propos de Gradient">
+          <span aria-hidden="true">i</span>
+        </button>
+        <button class="round-button" id="settings-button" type="button" aria-label="Ouvrir les réglages" aria-haspopup="dialog" title="Réglages">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M7 14v6" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <section class="experience" id="experience" aria-labelledby="main-title">
+      <div class="poetic-field" aria-hidden="true">
+        <span class="poetic-ring poetic-ring--one"></span>
+        <span class="poetic-ring poetic-ring--two"></span>
+        <span class="poetic-ring poetic-ring--three"></span>
+        <span class="poetic-horizon"></span>
+        <span class="poetic-star poetic-star--one"></span>
+        <span class="poetic-star poetic-star--two"></span>
+        <span class="poetic-star poetic-star--three"></span>
+      </div>
+      <button class="breath-orb" id="breath-button" type="button" aria-pressed="false" aria-describedby="breath-guide">
+        <span class="breath-halo breath-halo--outer" aria-hidden="true"></span>
+        <span class="breath-halo breath-halo--inner" aria-hidden="true"></span>
+        <span class="breath-core" aria-hidden="true"></span>
+        <span class="breath-copy">
+          <span class="breath-phase" id="breath-phase">Respirer</span>
+          <span class="breath-timer" id="breath-timer" aria-hidden="true"></span>
+          <span class="breath-detail" id="breath-detail">démarrer un cycle</span>
+        </span>
+      </button>
+
+      <div class="breath-visual-guide ui-layer" id="breath-visual-guide" aria-hidden="true">
+        <div class="breath-guide-track">
+          <span class="breath-guide-segment breath-guide-segment--inhale"><span id="breath-guide-inhale">Inspirer</span><strong id="breath-guide-inhale-time">4 s</strong></span>
+          <span class="breath-guide-runner"></span>
+          <span class="breath-guide-segment breath-guide-segment--exhale"><span id="breath-guide-exhale">Expirer</span><strong id="breath-guide-exhale-time">6 s</strong></span>
+        </div>
+        <p id="breath-guide-hint">Laissez le cercle grandir, puis accompagnez-le lorsqu’il revient.</p>
+      </div>
+
+      <div class="experience-copy ui-layer">
+        <p class="eyebrow">Un instant pour ralentir</p>
+        <h1 id="main-title">Respirez.<br><em>Le paysage vous suit.</em></h1>
+        <p class="intro" id="breath-guide">
+          Touchez le cercle. Le souffle devient lumière, mouvement et harmonie — sans objectif, simplement un rythme à habiter.
+        </p>
+        <p class="poetic-caption">Ici, rien à réussir. Seulement ralentir.</p>
+      </div>
+
+      <div class="primary-actions ui-layer" aria-label="Contrôles de l'expérience">
+        <button class="soft-button" id="sound-button" type="button" aria-pressed="false">
+          <span class="button-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 9v6h4l5 4V5L9 9H5Z"/><path class="sound-wave" d="M17 9.5c1.3 1.4 1.3 3.6 0 5M19.5 7c2.7 2.8 2.7 7.2 0 10"/></svg>
+          </span>
+          <span id="sound-label">Paysage sonore</span>
+        </button>
+
+        <button class="soft-button" id="immersion-button" type="button" aria-pressed="false">
+          <span class="button-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg>
+          </span>
+          Immersion
+        </button>
+
+        <button class="soft-button soft-button--session" id="session-button" type="button" aria-pressed="false">
+          <span class="button-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.7 2.1"/></svg>
+          </span>
+          <span id="session-label">Session libre</span>
+        </button>
+
+        <button class="soft-button soft-button--ritual" id="ritual-button" type="button" aria-pressed="false">
+          <span class="button-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3.2a8.8 8.8 0 1 0 8.8 8.8A7 7 0 0 1 12 3.2Z"/><path d="M15.5 6.5l.65 1.6 1.6.65-1.6.65-.65 1.6-.65-1.6-1.6-.65 1.6-.65.65-1.6Z"/></svg>
+          </span>
+          <span id="ritual-label">Rituel</span>
+        </button>
+      </div>
+
+      <div class="session-progress ui-layer" id="session-progress" hidden aria-live="polite">
+        <div class="session-progress__copy">
+          <span id="session-state">Session</span>
+          <strong id="session-remaining">10:00</strong>
+        </div>
+        <div class="session-progress__track" aria-hidden="true"><span id="session-progress-bar"></span></div>
+      </div>
+
+      <p class="micro-status ui-layer" id="audio-status" role="status" aria-live="polite">Silence · paysage actif</p>
+      <button class="why-link ui-layer" id="why-link" type="button">Pourquoi cette respiration ?</button>
+    </section>
+
+    <nav class="scene-switcher ui-layer" aria-label="Choisir une ambiance visuelle">
+      <button class="scene-dot is-active" type="button" data-palette="mist" aria-label="Brume" aria-pressed="true"><span></span></button>
+      <button class="scene-dot" type="button" data-palette="ocean" aria-label="Océan" aria-pressed="false"><span></span></button>
+      <button class="scene-dot" type="button" data-palette="dawn" aria-label="Aube" aria-pressed="false"><span></span></button>
+      <button class="scene-dot" type="button" data-palette="forest" aria-label="Forêt" aria-pressed="false"><span></span></button>
+      <button class="scene-dot" type="button" data-palette="sand" aria-label="Sable" aria-pressed="false"><span></span></button>
+    </nav>
+
+    <div class="cinematic-transition" id="cinematic-transition" aria-hidden="true"></div>
+
+    <section class="ritual-hud" id="ritual-hud" hidden aria-live="polite" aria-label="Progression du rituel">
+      <div class="ritual-hud__chapter">
+        <span id="ritual-kicker">Rituel · chapitre I</span>
+        <strong id="ritual-chapter">Arrivée</strong>
+        <em id="ritual-poem">Laissez le paysage venir à vous.</em>
+      </div>
+      <div class="ritual-hud__progress" aria-hidden="true"><span id="ritual-progress-bar"></span></div>
+      <button class="ritual-exit" id="ritual-exit" type="button">Quitter le rituel</button>
+    </section>
+
+    <p class="gesture-hint ui-layer" id="gesture-hint">Glissez · maintenez · dessinez un cercle</p>
+
+    <button class="exit-immersive" id="exit-immersive" type="button" hidden>Quitter l’immersion</button>
+  </main>
+
+  <dialog class="settings-dialog" id="settings-dialog" aria-labelledby="settings-title">
+    <div class="settings-panel">
+      <div class="dialog-header">
+        <div>
+          <p class="dialog-kicker">Votre espace</p>
+          <h2 id="settings-title">Réglages zen</h2>
+        </div>
+        <button class="dialog-close" id="close-settings" type="button" aria-label="Fermer les réglages">×</button>
+      </div>
+
+      <section class="setting-section" aria-labelledby="palette-title">
+        <div class="setting-heading">
+          <h3 id="palette-title">Ambiance couleur</h3>
+          <span>Transition douce entre les atmosphères</span>
+        </div>
+        <div class="palette-grid" id="palette-grid">
+          <button class="palette-card is-active" type="button" data-palette="mist" aria-pressed="true"><span class="palette-preview palette-preview--mist"></span><span>Brume</span></button>
+          <button class="palette-card" type="button" data-palette="ocean" aria-pressed="false"><span class="palette-preview palette-preview--ocean"></span><span>Océan</span></button>
+          <button class="palette-card" type="button" data-palette="dawn" aria-pressed="false"><span class="palette-preview palette-preview--dawn"></span><span>Aube</span></button>
+          <button class="palette-card" type="button" data-palette="forest" aria-pressed="false"><span class="palette-preview palette-preview--forest"></span><span>Forêt</span></button>
+          <button class="palette-card" type="button" data-palette="sand" aria-pressed="false"><span class="palette-preview palette-preview--sand"></span><span>Sable</span></button>
+        </div>
+      </section>
+
+      <section class="setting-section" aria-labelledby="sound-mode-title">
+        <div class="setting-heading">
+          <h3 id="sound-mode-title">Paysage sonore</h3>
+          <span>Des graves profonds aux harmoniques aériennes</span>
+        </div>
+        <div class="mode-grid mode-grid--sound" id="sound-mode-grid">
+          <button class="mode-card is-active" type="button" data-sound-mode="deep" aria-pressed="true"><span class="mode-icon mode-icon--deep" aria-hidden="true"></span><strong>Profondeurs</strong><small>Grave · C dorien</small></button>
+          <button class="mode-card" type="button" data-sound-mode="tide" aria-pressed="false"><span class="mode-icon mode-icon--tide" aria-hidden="true"></span><strong>Marée harmonique</strong><small>Ample · D pentatonique</small></button>
+          <button class="mode-card" type="button" data-sound-mode="night" aria-pressed="false"><span class="mode-icon mode-icon--night" aria-hidden="true"></span><strong>Nuit organique</strong><small>Feutré · A mineur</small></button>
+          <button class="mode-card" type="button" data-sound-mode="warm" aria-pressed="false"><span class="mode-icon mode-icon--warm" aria-hidden="true"></span><strong>Nappe solaire</strong><small>Chaleureux · F lydien</small></button>
+          <button class="mode-card" type="button" data-sound-mode="celestial" aria-pressed="false"><span class="mode-icon mode-icon--celestial" aria-hidden="true"></span><strong>Halo céleste</strong><small>Aérien · C lydien</small></button>
+          <button class="mode-card" type="button" data-sound-mode="crystal" aria-pressed="false"><span class="mode-icon mode-icon--crystal" aria-hidden="true"></span><strong>Cristal lent</strong><small>Clair · E pentatonique</small></button>
+          <button class="mode-card" type="button" data-sound-mode="prism" aria-pressed="false"><span class="mode-icon mode-icon--prism" aria-hidden="true"></span><strong>Prisme suspendu</strong><small>Minimaliste · E lydien</small></button>
+        </div>
+      </section>
+
+      <section class="setting-section" aria-labelledby="animation-title">
+        <div class="setting-heading">
+          <h3 id="animation-title">Animation</h3>
+          <span>Les formes réagissent principalement au paysage sonore</span>
+        </div>
+        <div class="mode-grid mode-grid--visual" id="animation-mode-grid">
+          <button class="mode-card is-active" type="button" data-animation-mode="waves" aria-pressed="true"><span class="visual-preview visual-preview--waves" aria-hidden="true"></span><strong>Vagues</strong><small>Fluides</small></button>
+          <button class="mode-card" type="button" data-animation-mode="silk" aria-pressed="false"><span class="visual-preview visual-preview--silk" aria-hidden="true"></span><strong>Voiles</strong><small>Aériens</small></button>
+          <button class="mode-card" type="button" data-animation-mode="orbit" aria-pressed="false"><span class="visual-preview visual-preview--orbit" aria-hidden="true"></span><strong>Orbites</strong><small>Lentes</small></button>
+          <button class="mode-card" type="button" data-animation-mode="bloom" aria-pressed="false"><span class="visual-preview visual-preview--bloom" aria-hidden="true"></span><strong>Floraison</strong><small>Respirante</small></button>
+          <button class="mode-card" type="button" data-animation-mode="topography" aria-pressed="false"><span class="visual-preview visual-preview--topography" aria-hidden="true"></span><strong>Topographie</strong><small>Contours</small></button>
+          <button class="mode-card" type="button" data-animation-mode="constellation" aria-pressed="false"><span class="visual-preview visual-preview--constellation" aria-hidden="true"></span><strong>Constellation</strong><small>Étoilée</small></button>
+        </div>
+      </section>
+
+      <section class="setting-section" aria-labelledby="breath-pattern-title">
+        <div class="setting-heading">
+          <h3 id="breath-pattern-title">Rythme respiratoire</h3>
+          <span>Choisir un guide confortable</span>
+        </div>
+        <div class="choice-pills" id="breath-pattern-grid">
+          <button class="choice-pill is-active" type="button" data-breath-pattern="relax" aria-pressed="true"><strong>4–6</strong><span>Détente</span></button>
+          <button class="choice-pill" type="button" data-breath-pattern="balanced" aria-pressed="false"><strong>5–5</strong><span>Régulier</span></button>
+        </div>
+      </section>
+
+      <section class="setting-section" aria-labelledby="session-duration-title">
+        <div class="setting-heading">
+          <h3 id="session-duration-title">Durée de session</h3>
+          <span>La séance peut s'arrêter automatiquement</span>
+        </div>
+        <div class="choice-pills choice-pills--four" id="session-duration-grid">
+          <button class="choice-pill is-active" type="button" data-session-minutes="0" aria-pressed="true"><strong>∞</strong><span>Libre</span></button>
+          <button class="choice-pill" type="button" data-session-minutes="5" aria-pressed="false"><strong>5</strong><span>min</span></button>
+          <button class="choice-pill" type="button" data-session-minutes="10" aria-pressed="false"><strong>10</strong><span>min</span></button>
+          <button class="choice-pill" type="button" data-session-minutes="20" aria-pressed="false"><strong>20</strong><span>min</span></button>
+        </div>
+      </section>
+
+      <section class="setting-section setting-section--compact">
+        <div class="range-row">
+          <div>
+            <label for="volume-range">Volume</label>
+            <span>Niveau global du paysage sonore</span>
+          </div>
+          <output id="volume-output" for="volume-range">78 %</output>
+        </div>
+        <input id="volume-range" type="range" min="0" max="100" value="78" />
+      </section>
+
+      <section class="setting-section setting-section--compact">
+        <div class="range-row">
+          <div>
+            <label for="intensity-range">Mouvement</label>
+            <span>Amplitude du paysage</span>
+          </div>
+          <output id="intensity-output" for="intensity-range">55 %</output>
+        </div>
+        <input id="intensity-range" type="range" min="20" max="100" value="55" />
+      </section>
+
+      <div class="toggle-list">
+        <label class="toggle-row" for="motion-toggle">
+          <span><strong>Animation</strong><small>Anime les formes et les lumières.</small></span>
+          <input id="motion-toggle" type="checkbox" checked />
+          <span class="toggle-ui" aria-hidden="true"></span>
+        </label>
+
+        <label class="toggle-row" for="autodim-toggle">
+          <span><strong>Interface discrète</strong><small>Les contrôles s’effacent après quelques secondes.</small></span>
+          <input id="autodim-toggle" type="checkbox" checked />
+          <span class="toggle-ui" aria-hidden="true"></span>
+        </label>
+
+        <label class="toggle-row" for="journey-toggle">
+          <span><strong>Voyage automatique</strong><small>Fait évoluer doucement couleurs, formes et son pendant une session.</small></span>
+          <input id="journey-toggle" type="checkbox" />
+          <span class="toggle-ui" aria-hidden="true"></span>
+        </label>
+      </div>
+
+      <div class="shortcut-note gesture-note">
+        <span class="shortcut-icon" aria-hidden="true">◌</span>
+        <p><strong>Gestes du paysage</strong><br />Glisser horizontalement : voyager · vers le haut : ouvrir les harmoniques · vers le bas : ancrer le grave · dessiner un cercle : résonner.</p>
+      </div>
+
+      <div class="shortcut-note">
+        <span class="shortcut-icon" aria-hidden="true">⌘</span>
+        <p><strong>Raccourcis</strong><br /><kbd>Espace</kbd> respiration · <kbd>M</kbd> son · <kbd>S</kbd> session · <kbd>R</kbd> rituel · <kbd>F</kbd> immersion · <kbd>Échap</kbd> quitter</p>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="about-dialog" id="about-dialog" aria-labelledby="about-title">
+    <article class="about-panel">
+      <div class="dialog-header">
+        <div>
+          <p class="dialog-kicker">Gradient · intention</p>
+          <h2 id="about-title">Respirer pour ralentir</h2>
+        </div>
+        <button class="dialog-close" id="close-about" type="button" aria-label="Fermer">×</button>
+      </div>
+
+      <div class="about-lead">
+        <p>
+          Une respiration lente et confortable fait partie des techniques de relaxation. Elle peut aider à diminuer l’activation liée au stress et à retrouver une sensation de calme, notamment lorsqu’elle est pratiquée régulièrement et sans forcer.
+        </p>
+      </div>
+
+      <div class="evidence-grid" aria-label="Ce que suggèrent les données disponibles">
+        <section>
+          <span class="evidence-number">01</span>
+          <h3>Ralentir la réponse au stress</h3>
+          <p>Les techniques de relaxation, dont la respiration lente ou diaphragmatique, sont associées à une respiration plus lente et peuvent s’accompagner d’une diminution de certains marqueurs de stress.</p>
+        </section>
+        <section>
+          <span class="evidence-number">02</span>
+          <h3>Soutenir la régulation autonome</h3>
+          <p>Une revue systématique a observé, dans plusieurs études, des changements de variabilité cardiaque et d’autres indicateurs compatibles avec une modulation du système nerveux autonome.</p>
+        </section>
+        <section>
+          <span class="evidence-number">03</span>
+          <h3>Créer une pratique simple</h3>
+          <p>Le NHS recommande une respiration douce, confortable et régulière, pratiquée quelques minutes. Gradient traduit cette idée en repères visuels et sonores plutôt qu’en performance.</p>
+        </section>
+      </div>
+
+      <p class="health-note">
+        Gradient est une expérience de bien-être, pas un dispositif médical. Les effets varient selon les personnes. La respiration ne doit jamais être forcée ; en cas d’inconfort, arrêtez et respirez normalement. L’application ne remplace pas un avis ou un traitement médical.
+      </p>
+
+      <section class="creator-section" aria-labelledby="creator-title">
+        <p class="dialog-kicker">Démarche de développement</p>
+        <h3 id="creator-title">Une interface sensible développée par Nathan Chambrette</h3>
+        <p>
+          Gradient est développé par Nathan Chambrette comme une recherche autour d’une interface volontairement lente, non compétitive et contemplative. Le projet met en relation quatre matières numériques — la respiration, la couleur, le mouvement génératif et le son — pour transformer le navigateur en petit espace de pause.
+        </p>
+        <p>
+          Les choix techniques suivent cette intention : p5.js produit des formes organiques qui ne se répètent jamais exactement, Tone.js génère plusieurs paysages sonores harmoniques en temps réel, et les transitions sont conçues pour éviter les ruptures brusques. Le but n’est pas de « réussir » une séance, mais de proposer un rythme, laisser de l’espace et rendre l’interaction presque invisible.
+        </p>
+      </section>
+
+      <section class="sources-section" aria-labelledby="sources-title">
+        <p class="dialog-kicker">Sources</p>
+        <h3 id="sources-title">Pour aller plus loin</h3>
+        <div class="source-links">
+          <a href="https://www.nccih.nih.gov/health/stress" target="_blank" rel="noreferrer">NCCIH / NIH — Stress et techniques de relaxation <span aria-hidden="true">↗</span></a>
+          <a href="https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/breathing-exercises-for-stress/" target="_blank" rel="noreferrer">NHS — Exercices respiratoires pour le stress <span aria-hidden="true">↗</span></a>
+          <a href="https://doi.org/10.3389/fnhum.2018.00353" target="_blank" rel="noreferrer">Zaccaro et al., 2018 — Revue systématique sur la respiration lente <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+    </article>
+  </dialog>
+
+  <!-- Pas de footer permanent : l’expérience reste volontairement plein écran et sans distraction. -->
+  <script>
+    // Gradient n’utilise ni l’orientation ni l’accéléromètre. p5 1.x tente néanmoins
+    // d’enregistrer ces capteurs dans son mode global, ce qui génère des avertissements
+    // de permissions dans Firefox. On ignore uniquement ces deux écouteurs inutilisés.
+    (() => {
+      const nativeAddEventListener = window.addEventListener;
+      window.addEventListener = function(type, listener, options) {
+        if (type === "deviceorientation" || type === "devicemotion") return;
+        return nativeAddEventListener.call(this, type, listener, options);
+      };
+    })();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.5.0/lib/p5.min.js"></script>
+  <!-- Tone.js est chargé à la demande après un geste utilisateur par gradient.js. -->
+  <script src="gradient.js"></script>
+</body>
+</html>
