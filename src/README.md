@@ -1,6 +1,4 @@
-# Gradient Zen V14
-
-V14 développe Gradient comme une expérience audiovisuelle plus cinématographique et plus sensible aux gestes.
+Cette version développe Gradient comme une expérience audiovisuelle plus cinématographique et plus sensible aux gestes.
 
 ## Mode Rituel
 
@@ -35,7 +33,7 @@ Les gestes ne s'appliquent que sur le paysage, jamais sur les contrôles :
 - **glissement vers le bas** : renforcer une impulsion grave et l'ancrage ;
 - **geste circulaire** : produire une résonance harmonique et une floraison visuelle ;
 - **maintien sur le paysage** : approfondir le grave ;
-- les interactions de la V13 (traînées, halos, appui long sur le cercle respiratoire) restent présentes.
+- **interactions** : traînées, halos, appui long sur le cercle respiratoire ;
 
 ## Raccourcis
 
@@ -45,25 +43,6 @@ Les gestes ne s'appliquent que sur le paysage, jamais sur les contrôles :
 - `R` : rituel
 - `F` : immersion
 - `Échap` : quitter le rituel / l'immersion
-
-## Fichiers
-
-- `index.html`
-- `gradient.html`
-- `gradient.css`
-- `gradient.js`
-- `favicon.svg`
-
-## Exécution
-
-Lancer de préférence depuis un serveur local :
-
-```bash
-python -m http.server 8000
-```
-
-Puis ouvrir le dossier de la V14 depuis `http://127.0.0.1:8000/`.
-
 ## Correctif initialisation p5
 
 La V14 corrigée diffère l'optimisation adaptative jusqu'à la fin de `setup()` de p5. Les générateurs de particules appelables hors du cycle p5 utilisent désormais un générateur natif basé sur `Math.random()`. Cela corrige l'erreur `ReferenceError: random is not defined` qui pouvait survenir au chargement.
